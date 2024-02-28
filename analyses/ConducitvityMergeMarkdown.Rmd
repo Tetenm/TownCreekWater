@@ -4,12 +4,29 @@ output: html_document
 date: "2024-01-24"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r setup2}
+# Clear environment:
+rm(list=ls())
+
+#use to set working directory 
+knitr::opts_knit$set(root.dir="~/GitHub/TownCreekWater/analyses")
+setwd("~/GitHub/TownCreekWater/analyses")
+```
+
+
 ```{r - Total Dry RSC Conductivity}
 library(tidyverse)
 library(lubridate)
 
 #Read in csv file 
-TotalDryRSCCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalDry_RSC_down_condo.csv")
+#TotalDryRSCCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalDry_RSC_down_condo.csv")
+
+TotalDryRSCCond <- read.csv("../data/HoboData/TotalDry_RSC_down_condo.csv")
 
 #Date manipulation 
 TotalDryRSCCond$Date2 = as.Date(TotalDryRSCCond$Date,"%m/%d/%Y" )
@@ -39,27 +56,39 @@ dpi = 300)
 library(tidyverse)
 library(lubridate)
 #Read in csv file 
-TotalISRSCP1Cond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalIS_RSC_P1_cond.csv")
+#TotalISRSCP1Cond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalIS_RSC_P1_cond.csv")
+
+TotalISRSCP1Cond <- read.csv("../data/HoboData/TotalIS_RSC_P1_cond.csv")
 
 TotalISRSCP1Cond$Date2 = as.Date(TotalISRSCP1Cond$Date,"%m/%d/%Y" )
+
 plot.TISRSCP1 <- ggplot(
   data = TotalISRSCP1Cond, aes(x = Date2, y = Specific_Conductance, group=1)
  ) +
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "RSC P1 Conducitivity Levels",
-         x = "Date", y = "Specific Conducitivity (μS/cm)",)+
+         title = "",
+         x = "", y = "Specific Conducitivity (μS/cm)",)+
      
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
-plot.TISRSCP1
-ggsave(file = "RSCP1Conductivity.png",
-width = 8,
-height = 5.5, 
-dpi = 300
-)
+     theme(axis.text.x = element_text(angle=45, hjust = 1))+
+    #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
 
+plot.TISRSCP1
+
+#ggsave("../figures/IS_P1_conductivity.png", plot=plot.TISRSCP1, device="png", path=NULL, scale=1, width=12, height=6, dpi=600, limitsize=TRUE, bg="white")
 ```
 
 
@@ -96,24 +125,49 @@ library(tidyverse)
 library(lubridate)
 
 #Read in csv file 
-TotalISRSCUpCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\IS_RSC_Upstream_cond.csv")
+#TotalISRSCUpCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\IS_RSC_Upstream_cond.csv")
+
+TotalISRSCUpCond <- read.csv("../data/HoboData/IS_RSC_Upstream_cond.csv")
 
 TotalISRSCUpCond$Date2 = as.Date(TotalISRSCUpCond$Date,"%m/%d/%Y" )
-plot.ISRSCUP<- ggplot(
-  data = TotalISRSCUpCond, aes(x = Date2, y = Specific_Conductance, group=1)
- ) +
+
+plot.ISRSCUP<- ggplot(data = TotalISRSCUpCond, aes(x = Date2, y = Specific_Conductance, group=1)) +
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
      #geom_line() +
      geom_point(size=.25)+ 
-     labs(
-         title = "In Stream RSC Upstream Conducitivity Levels",
-         x = "Date", y = "Specific Conducitivity (μS/cm)",)+
-     
+     labs(title = "", x = "", y = "Specific Conducitivity (μS/cm)")+
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+     theme(axis.text.x = element_text(angle=45, hjust = 1))+
+    #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
 plot.ISRSCUP
+
 ggsave(file = "ISRSCUPstream.png",
 width = 8,
 height = 5.5, 
 dpi = 300
 )
 ```
+
+```{r}
+two_panel_IS_up_Down <- ggarrange(plot.TISRSCP1, plot.ISRSCUP, ncol = 1, nrow = 2, labels = NULL, legend = "none")
+
+two_panel_IS_up_Down
+
+#ggsave("../figures/NH3_NOX.png", plot=two_panel_NH3_NOX, device="png", path=NULL, scale=1, width=12, height=10, dpi=600, limitsize=TRUE, bg="white")
+```
+
+
+
+
+

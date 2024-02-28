@@ -1,0 +1,264 @@
+---
+title: "TownCreekNitrate"
+author: "CF"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r setup2}
+# Clear environment:
+rm(list=ls())
+
+#use to set working directory 
+knitr::opts_knit$set(root.dir="~/GitHub/TownCreekWater/analyses")
+setwd("~/GitHub/TownCreekWater/analyses")
+```
+
+```{r packages}
+require("tidyverse")
+require("lubridate")
+require("ggpubr")
+```
+
+
+```{r read in data}
+#nitrate_up_down <- read.csv("../data/nitrate_up_down.csv")
+
+#nitrate_LONG <- read.csv("../data/nitrate_LongForm.csv")
+
+# Water Resources Center, Lachat, NH3 and PO4:
+NH3_PO4 <- read.csv("../data/GrabSampleNutrients/NH3_PO4.csv")
+
+# Water Resources Center, Lachat, NO2/NO3 (NOX):
+NOX <- read.csv("../data/GrabSampleNutrients/NOX.csv")
+```
+
+```{r wrangle data}
+# Make up or down a factor:
+#nitrate_LONG$Up_or_Down <- factor(nitrate_LONG$Up_or_Down, levels = c("Up", "Down"))
+
+# Shorten date:
+
+# Duplicate of nitrate_up_down for plotting:
+#nitrate_up_down2 <- nitrate_up_down
+```
+
+```{r wrangle WRC data}
+# New subset to only include 'unknowns':
+NH3_PO4_Unknown <- NH3_PO4 %>%
+  filter(Sample.Type == "Unknown" & Sample.ID != "DI water")
+
+NOX_Unknown <- NOX %>%
+  filter(Sample.Type == "Unknown" & Sample.ID != "DI WATER")
+
+# String manipulation to create date column:
+NH3_PO4_Unknown$Date <- substr(NH3_PO4_Unknown$Sample.ID, 7, 13)
+NH3_PO4_Unknown$Date <- my(NH3_PO4_Unknown$Date)
+
+NOX_Unknown$Date <- substr(NOX_Unknown$Sample.ID, 7, 13)
+NOX_Unknown$Date <- my(NOX_Unknown$Date)
+
+# String manipulation to create site column:
+NH3_PO4_Unknown$Site <- substr(NH3_PO4_Unknown$Sample.ID, 1, 5)
+NH3_PO4_Unknown$Site <- as.factor(NH3_PO4_Unknown$Site)
+
+NOX_Unknown$Site <- substr(NOX_Unknown$Sample.ID, 1, 5)
+NOX_Unknown$Site <- as.factor(NOX_Unknown$Site)
+
+# Convert negatives to zeroes:
+NH3_PO4_Unknown_dropNegs <- NH3_PO4_Unknown %>%
+  dplyr::mutate(Peak.Concentration = ifelse(Peak.Concentration < 0, 0, Peak.Concentration))
+
+NOX_Unknown_dropNegs <- NOX_Unknown %>%
+  dplyr::mutate(Peak.Concentration = ifelse(Peak.Concentration < 0, 0, Peak.Concentration))
+```
+
+
+```{r Color-blind-friendly palette}
+# From: http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+```{r}
+plot.nitrate <- ggplot() +
+                     #geom_line(aes(shape=Up_or_Down, color=Up_or_Down, fill = Up_or_Down), size = 5) +
+  geom_line(data = nitrate_up_down, aes(x=Date, y=NO3.Up, group=1))+
+  geom_line(data = nitrate_up_down2, aes(x=Date, y=NO3.Down, group=2))+
+  #scale_color_manual(values=c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location") +
+ # scale_shape_manual(values = c(24, 25), labels = c("Upstream", "Downstream"), name = "Sample Location")+
+  #scale_fill_manual(values = c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location")+
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=40),axis.title=element_text(size=40,face="bold"),
+          axis.text=element_text(size=40),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 40), legend.position="none", legend.title = element_text(size=40), legend.text=element_text(size=40)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+          labs(x = "Date", y = expression(paste("NO"[3]," mg/l")), title="") +
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA))
+  
+ 
+plot.nitrate
+
+#ggsave("../figures/denit_Summer_BigFont.png", plot=plot.denit_ACET_Summer_BigFont, device="png", path=NULL, scale=1, width=17, height=10, dpi=900, limitsize=TRUE, bg="white")
+```
+
+
+
+```{r plot nitrate data}
+plot.nitrate_2 <- ggplot(nitrate_LONG, aes(x=as.Date(Date), y=NO3, color=Up_or_Down)) +
+  geom_line(aes(x=Date, y=NO3, color=Up_or_Down, group=Up_or_Down))+
+  geom_point(aes(x=Date, y=NO3, color=Up_or_Down, shape=Up_or_Down, fill=Up_or_Down))+
+  scale_color_manual(values=c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location") +
+  scale_shape_manual(values = c(24, 25), labels = c("Upstream", "Downstream"), name = "Sample Location")+
+  scale_fill_manual(values = c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location")+
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=40),axis.title=element_text(size=40,face="bold"),
+          axis.text=element_text(size=40),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 40), legend.position="right", legend.title = element_text(size=40), legend.text=element_text(size=40)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+          labs(x = "Date", y = expression(paste("NO"[3]," mg/l")), title="") +
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA))
+  
+ 
+plot.nitrate_2
+
+#ggsave("../figures/denit_Summer_BigFont.png", plot=plot.denit_ACET_Summer_BigFont, device="png", path=NULL, scale=1, width=17, height=10, dpi=900, limitsize=TRUE, bg="white")
+```
+
+
+```{r WRC NH3}
+NH3_PO4_Unknown_Upstream <- NH3_PO4_Unknown_dropNegs %>%
+  filter(Site == "TC 15")
+
+NH3_PO4_Unknown_Downstream <- NH3_PO4_Unknown_dropNegs %>%
+  filter(Site == "TC 16")
+
+
+plot.NH3 <- ggplot() +
+                     #geom_line(aes(shape=Up_or_Down, color=Up_or_Down, fill = Up_or_Down), size = 5) +
+  geom_line(data = NH3_PO4_Unknown_Upstream, aes(x=Date, y=Peak.Concentration, group=1), color = "#CC79A7", size = 1)+
+  geom_point(data = NH3_PO4_Unknown_Upstream, aes(x=Date, y=Peak.Concentration, group=1), color = "#CC79A7", fill = "#CC79A7", size = 4, shape = 24)+
+  geom_line(data = NH3_PO4_Unknown_Downstream, aes(x=Date, y=Peak.Concentration, group=2), color = "#0072B2", size = 1)+
+    geom_point(data = NH3_PO4_Unknown_Downstream, aes(x=Date, y=Peak.Concentration, group=2), color = "#0072B2", fill = "#0072B2", size = 4, shape = 25)+
+  #scale_color_manual(values=c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location") +
+ # scale_shape_manual(values = c(24, 25), labels = c("Upstream", "Downstream"), name = "Sample Location")+
+  #scale_fill_manual(values = c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location")+
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+          labs(x = "", y = expression(paste("NH"[3],""^{"+"}," mg/l")), title="") +
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_blank())
+  
+ 
+plot.NH3
+
+#ggsave("../figures/denit_Summer_BigFont.png", plot=plot.denit_ACET_Summer_BigFont, device="png", path=NULL, scale=1, width=17, height=10, dpi=900, limitsize=TRUE, bg="white")
+```
+
+```{r WRC NOX}
+NOX_Unknown_Upstream <- NOX_Unknown_dropNegs %>%
+  filter(Site == "TC 15")
+
+NOX_Unknown_Downstream <- NOX_Unknown_dropNegs %>%
+  filter(Site == "TC 16")
+
+
+plot.NOX <- ggplot() +
+  geom_line(data = NOX_Unknown_Upstream, aes(x=Date, y=Peak.Concentration, group=1), color = "#CC79A7", size = 1)+
+  geom_point(data = NOX_Unknown_Upstream, aes(x=Date, y=Peak.Concentration, group=1), color = "#CC79A7", fill = "#CC79A7", size = 4, shape = 24)+
+  geom_line(data = NOX_Unknown_Downstream, aes(x=Date, y=Peak.Concentration, group=2), color = "#0072B2", size = 1)+
+    geom_point(data = NOX_Unknown_Downstream, aes(x=Date, y=Peak.Concentration, group=2), color = "#0072B2", fill = "#0072B2", size = 4, shape = 25)+
+  #scale_color_manual(values=c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location") +
+ # scale_shape_manual(values = c(24, 25), labels = c("Upstream", "Downstream"), name = "Sample Location")+
+  #scale_fill_manual(values = c("#D55E00","#CC79A7"), labels = c("Upstream", "Downstream"), name="Sample Location")+
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+          labs(x = "", y = expression(paste("NO"[x],""^{"-"}," mg/l")), title="") +
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+  
+ 
+plot.NOX
+
+#ggsave("../figures/denit_Summer_BigFont.png", plot=plot.denit_ACET_Summer_BigFont, device="png", path=NULL, scale=1, width=17, height=10, dpi=900, limitsize=TRUE, bg="white")
+```
+
+```{r Mock plot to get legend}
+# This is actually a better way to make the plot anyway (but Y-axis label here is wrong)
+
+plot.Mock <- ggplot(data = NH3_PO4_Unknown_dropNegs, aes(x = Date, y = Peak.Concentration, shape=Site, color=Site, fill = Site)) +
+  geom_line(size = 1) +
+  geom_point(size = 4)+
+  scale_color_manual(values=c("#CC79A7","#0072B2"), labels = c("Upstream", "Downstream"), name="Sample Location") +
+  scale_shape_manual(values = c(24, 25), labels = c("Upstream", "Downstream"), name = "Sample Location")+
+  scale_fill_manual(values = c("#CC79A7","#0072B2"), labels = c("Upstream", "Downstream"), name="Sample Location")+
+  theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="bottom", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+          labs(x = "", y = expression(paste("NO"[x],""^{"-"}," mg/l")), title="") +
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+  
+ 
+plot.Mock
+```
+
+```{r Extract mock plot legend}
+leg_bottom <- get_legend(plot.Mock, position = "bottom") #Extract legend as a legend Grob
+legend_plot_bottom <- as_ggplot(leg_bottom) #Asign the grob as a ggplot
+legend_plot_bottom #View the plot
+
+#ggsave("../figures/Legend_bottom.png", plot=legend_plot_bottom, device="png", path=NULL, scale=1, dpi=300, height = 3, width = 12, limitsize=T, bg="white")
+```
+
+
+
+```{r panel NH3 and NOX}
+two_panel_NH3_NOX <- ggarrange(plot.NH3, plot.NOX, ncol = 1, nrow = 2, labels = NULL, legend = "none")
+
+two_panel_NH3_NOX
+
+#ggsave("../figures/NH3_NOX.png", plot=two_panel_NH3_NOX, device="png", path=NULL, scale=1, width=12, height=10, dpi=600, limitsize=TRUE, bg="white")
+```
+
+

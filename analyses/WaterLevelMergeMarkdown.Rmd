@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r packgages}
 require("tidyverse")
 require("lubridate")
+require("ggpubr")
 
 ```
 
@@ -31,11 +32,22 @@ plot.R1WL <- ggplot(
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "Riffle 1 Water Level ",
+         title = "",
          x = "", y = "Sensor Depth (m)",)+
      
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+    theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_blank())
 
 plot.R1WL
 
@@ -45,6 +57,8 @@ plot.R1WL
 ```{r working date plot - Riffle 3 Water Level}
 # Read in data:
 FinalRiffle3 <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\Totalriffle3.csv")
+FinalRiffle3 <- read.csv("../data/HoboData/Totalriffle3.csv")
+
 
 # Format date:
 FinalRiffle3$Date2 = as.Date(FinalRiffle3$Date,"%m/%d/%Y")
@@ -56,11 +70,22 @@ plot.R3WL <- ggplot(
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "Riffle 3 Water Level ",
+         title = "",
          x = "", y = "Sensor Depth (m)",)+
      
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+    theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
 
 plot.R3WL
 
@@ -128,11 +153,23 @@ plot.TSRSCD <- ggplot(
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "RSC Small Down Water Level ",
-         x = "", y = "Sensor Depth (m)",)+
-     
+         title = "",
+         x = "", y = "",)+
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+ theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
+
 plot.TSRSCD
 ```
 
@@ -168,17 +205,35 @@ TotalSmallRSCUp$Date2 <- as.Date(TotalSmallRSCUp$Date,"%m/%d/%Y")
 
 # Plot:
 plot.TSRSCU <- ggplot(
-  data = TotalSmallRSCUp, aes(x = Date2, y = Sensor_Depth, group=1)
+  data = TotalSmallRSCUp[1:39859,], aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "Small RSC Water Level ",
-         x = "", y = "Sensor Depth (m)",)+
-     
+         title = "",
+         x = "", y = "",)+
      scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+      theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_blank())
+
 plot.TSRSCU
 ```
 
+```{r four panel water level}
+four_panel_IS_Dry_up_Down <- ggarrange(plot.R1WL, plot.TSRSCU, plot.R3WL, plot.TSRSCD, ncol = 2, nrow = 2, labels = c("A", "B", "C", "D"), legend = "none")
+
+four_panel_IS_Dry_up_Down
+
+ggsave("../figures/WaterLVL.png", plot=four_panel_IS_Dry_up_Down, device="png", path=NULL, scale=1, width=14, height=10, dpi=600, limitsize=TRUE, bg="white")
+```
 

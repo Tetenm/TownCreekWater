@@ -1,0 +1,62 @@
+Sample ID,Sample Type,Analyte Name,Peak Concentration,Determined Conc.,Concentration Units,Analyte Name,Peak Concentration,Determined Conc.,Concentration Units
+CalStd A,Calibration Standard,NH3,2,1.975418,mg/L as N,PO4,2,1.920177,mg/L as P
+CalStd B,Calibration Standard,NH3,1,1.116932,mg/L as N,PO4,1,1.035622,mg/L as P
+CalStd C,Calibration Standard,NH3,0.5,0.4107268,mg/L as N,PO4,0.5,0.5196167,mg/L as P
+CalStd D,Calibration Standard,NH3,0.2,0.1133307,mg/L as N,PO4,0.2,0.2077042,mg/L as P
+CalStdE,Calibration Standard,NH3,0.1,4.62E-02,mg/L as N,PO4,0.1,0.1030307,mg/L as P
+CalStdF,Calibration Standard,NH3,0.05,2.33E-02,mg/L as N,PO4,0.05,5.24E-02,mg/L as P
+CalStdG,Calibration Standard,NH3,0.02,1.24E-02,mg/L as N,PO4,0.02,2.31E-02,mg/L as P
+CalStdH,Calibration Standard,NH3,0.01,9.58E-03,mg/L as N,PO4,0.01,1.22E-02,mg/L as P
+CalStdI,Calibration Standard,NH3,0.0025,1.24E-02,mg/L as N,PO4,0.0025,1.70E-03,mg/L as P
+Blank,Calibration Standard,NH3,0,-4.88E-03,mg/L as N,PO4,0,-5.05E-04,mg/L as P
+2 ppm check,Check Standard,NH3,2.143,1.976149,mg/L as N,PO4,1.877,1.877486,mg/L as P
+1ppm ,Check Standard,NH3,0.793,1.102023,mg/L as N,PO4,0.964,0.9636578,mg/L as P
+0.5ppm ,Check Standard,NH3,0.327,0.4185063,mg/L as N,PO4,0.495,0.494723,mg/L as P
+blank,Check Standard,NH3,0.009996,6.83E-03,mg/L as N,PO4,0.004596,4.60E-03,mg/L as P
+TC 15 08/2022,Unknown,NH3,0.03,,mg/L as N,PO4,0.104,,mg/L as P
+TC 16 08/2022*,Unknown,NH3,0.029,,mg/L as N,PO4,0.069,,mg/L as P
+TC 15 09/2022,Unknown,NH3,0.047,,mg/L as N,PO4,0.127,,mg/L as P
+TC 16 09/2022,Unknown,NH3,0.022,,mg/L as N,PO4,0.053,,mg/L as P
+TC 15 10/2022,Unknown,NH3,0.034,,mg/L as N,PO4,0.145,,mg/L as P
+TC 16 10/2022,Unknown,NH3,0.013,,mg/L as N,PO4,0.081,,mg/L as P
+TC 15 11/2022,Unknown,NH3,0.066,,mg/L as N,PO4,0.139,,mg/L as P
+TC 16 11/2022,Unknown,NH3,0.029,,mg/L as N,PO4,0.132,,mg/L as P
+TC 15 12/2022,Unknown,NH3,0.063,,mg/L as N,PO4,0.154,,mg/L as P
+TC 16 12/2022,Unknown,NH3,0.032,,mg/L as N,PO4,0.155,,mg/L as P
+TC 15 01/2023,Unknown,NH3,0.034,,mg/L as N,PO4,0.097,,mg/L as P
+TC 16 01/2023,Unknown,NH3,0.039,,mg/L as N,PO4,0.052,,mg/L as P
+TC 15 02/2023,Unknown,NH3,0.021,,mg/L as N,PO4,0.071,,mg/L as P
+TC 16 02/2023,Unknown,NH3,0.035,,mg/L as N,PO4,0.053,,mg/L as P
+TC 15 03/2023,Unknown,NH3,0.034,,mg/L as N,PO4,0.073,,mg/L as P
+TC 16 03/2023,Unknown,NH3,0.021,,mg/L as N,PO4,0.058,,mg/L as P
+1ppm check,Check Standard,NH3,0.806,1.118597,mg/L as N,PO4,0.959,0.959349,mg/L as P
+0.5ppm check,Check Standard,NH3,0.335,0.4305721,mg/L as N,PO4,0.48,0.480169,mg/L as P
+blank,Check Standard,NH3,-0.01,-3.95E-03,mg/L as N,PO4,0.001105,1.11E-03,mg/L as P
+TC 15 04/2023,Unknown,NH3,0.038,,mg/L as N,PO4,0.083,,mg/L as P
+TC 16 04/2023,Unknown,NH3,0.028,,mg/L as N,PO4,0.065,,mg/L as P
+TC 15 05/2023,Unknown,NH3,0.055,,mg/L as N,PO4,0.063,,mg/L as P
+TC 16 05/2023,Unknown,NH3,0.054,,mg/L as N,PO4,0.087,,mg/L as P
+TC 15 06/2023,Unknown,NH3,0.013,,mg/L as N,PO4,0.106,,mg/L as P
+TC 16 06/2023,Unknown,NH3,0.034,,mg/L as N,PO4,0.1,,mg/L as P
+TC 15 07/2023*,Unknown,NH3,-0.019,,mg/L as N,PO4,0.093,,mg/L as P
+TC 16 07/2023*,Unknown,NH3,-0.002593,,mg/L as N,PO4,0.066,,mg/L as P
+TC 15 08/2023*,Unknown,NH3,0.002034,,mg/L as N,PO4,0.065,,mg/L as P
+TC 16 08/2023*,Unknown,NH3,0.049,,mg/L as N,PO4,0.105,,mg/L as P
+TC 15 09/2023,Unknown,NH3,-0.013,,mg/L as N,PO4,0.045,,mg/L as P
+TC 16 09/2023,Unknown,NH3,0.031,,mg/L as N,PO4,0.085,,mg/L as P
+TC 15 10/2023,Unknown,NH3,0.039,,mg/L as N,PO4,0.126,,mg/L as P
+TC 16 10/2023,Unknown,NH3,0.29,,mg/L as N,PO4,0.236,,mg/L as P
+TC 15 11/2023,Unknown,NH3,0.025,,mg/L as N,PO4,0.161,,mg/L as P
+TC 16 11/2023,Unknown,NH3,0.012,,mg/L as N,PO4,0.075,,mg/L as P
+TC 15 12/2023,Unknown,NH3,0.025,,mg/L as N,PO4,0.155,,mg/L as P
+TC 16 12/2023,Unknown,NH3,0.013,,mg/L as N,PO4,0.127,,mg/L as P
+DI water,Unknown,NH3,-0.00155,,mg/L as N,PO4,0.004659,,mg/L as P
+TC 15 07/2023,Unknown,NH3,0.008738,,mg/L as N,PO4,0.092,,mg/L as P
+TC 16 07/2023,Unknown,NH3,0.007509,,mg/L as N,PO4,0.065,,mg/L as P
+TC 15 08/2023,Unknown,NH3,0.005498,,mg/L as N,PO4,0.067,,mg/L as P
+TC 15 09/2023,Unknown,NH3,-0.00417,,mg/L as N,PO4,0.046,,mg/L as P
+2ppm check,Check Standard,NH3,2.157,1.975677,mg/L as N,PO4,1.883,1.88294,mg/L as P
+2ppm check,Check Standard,NH3,2.151,1.975905,mg/L as N,PO4,1.893,1.892679,mg/L as P
+1ppm check,Check Standard,NH3,0.8,1.110952,mg/L as N,PO4,0.961,0.9608757,mg/L as P
+0.5ppm check,Check Standard,NH3,0.325,0.4159378,mg/L as N,PO4,0.487,0.4869287,mg/L as P
+blank,Check Standard,NH3,0.01,7.04E-03,mg/L as N,PO4,0.001239,1.24E-03,mg/L as P

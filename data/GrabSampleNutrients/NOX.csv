@@ -1,0 +1,60 @@
+Sample ID,Sample Type,Analyte Name,Peak Concentration,Determined Conc.,Concentration Units
+CalStd A,Calibration Standard,NO3-NO2,20,19.91977,mg/L as N
+CalStd B,Calibration Standard,NO3-NO2,10,10.34483,mg/L as N
+CalStd C,Calibration Standard,NO3-NO2,5,4.142388,mg/L as N
+CalStd D,Calibration Standard,NO3-NO2,2,2.190101,mg/L as N
+CalStdE,Calibration Standard,NO3-NO2,1,1.127181,mg/L as N
+CalStdF,Calibration Standard,NO3-NO2,0.5,0.532268,mg/L as N
+CalStdG,Calibration Standard,NO3-NO2,0.2,0.198506,mg/L as N
+CalStdH,Calibration Standard,NO3-NO2,0.1,9.18E-02,mg/L as N
+CalStdI,Calibration Standard,NO3-NO2,0.025,4.56E-02,mg/L as N
+Blank,Calibration Standard,NO3-NO2,0,-0.0219814,mg/L as N
+20ppm check,Check Standard,NO3-NO2,19.275,19.33911,mg/L as N
+0.5ppm check,Check Standard,NO3-NO2,0.523,0.5431418,mg/L as N
+0.5ppm,Check Standard,NO3-NO2,0.516,0.5350129,mg/L as N
+blank,Check Standard,NO3-NO2,-0.068,-7.33E-02,mg/L as N
+Blank,Check Standard,NO3-NO2,-0.125,-0.1339097,mg/L as N
+TC 15 08/2022,Unknown,NO3-NO2,0.555,,mg/L as N
+TC 16 08/2022,Unknown,NO3-NO2,0.247,,mg/L as N
+TC 15 09/2022,Unknown,NO3-NO2,0.569,,mg/L as N
+TC 16 09/2022,Unknown,NO3-NO2,0.114,,mg/L as N
+TC 15 10/2022,Unknown,NO3-NO2,0.56,,mg/L as N
+TC 16 10/2022,Unknown,NO3-NO2,0.202,,mg/L as N
+TC 15 11/2022,Unknown,NO3-NO2,0.552,,mg/L as N
+TC 16 11/2022,Unknown,NO3-NO2,0.376,,mg/L as N
+TC 15 12/2022,Unknown,NO3-NO2,0.372,,mg/L as N
+TC 16 12/2022,Unknown,NO3-NO2,0.238,,mg/L as N
+TC 15 01/2023,Unknown,NO3-NO2,0.524,,mg/L as N
+TC 16 01/2023,Unknown,NO3-NO2,0.266,,mg/L as N
+TC 15 02/2023,Unknown,NO3-NO2,0.849,,mg/L as N
+TC 16 02/2023,Unknown,NO3-NO2,0.667,,mg/L as N
+TC 15 03/2023,Unknown,NO3-NO2,0.331,,mg/L as N
+TC 16 03/2023,Unknown,NO3-NO2,0.149,,mg/L as N
+20ppm,Check Standard,NO3-NO2,19.016,19.04267,mg/L as N
+0.5ppm check,Check Standard,NO3-NO2,0.46,0.4772073,mg/L as N
+blank,Check Standard,NO3-NO2,-0.06,-6.56E-02,mg/L as N
+TC 15 04/2023,Unknown,NO3-NO2,0.726,,mg/L as N
+TC 16 04/2023,Unknown,NO3-NO2,0.339,,mg/L as N
+TC 15 05/2023,Unknown,NO3-NO2,0.634,,mg/L as N
+TC 16 05/2023,Unknown,NO3-NO2,0.383,,mg/L as N
+TC 15 06/2023,Unknown,NO3-NO2,0.837,,mg/L as N
+TC 16 06/2023,Unknown,NO3-NO2,0.276,,mg/L as N
+TC 15 07/2023,Unknown,NO3-NO2,0.741,,mg/L as N
+TC 16 07/2023,Unknown,NO3-NO2,0.119,,mg/L as N
+TC 15 08/2023,Unknown,NO3-NO2,0.368,,mg/L as N
+TC 16 08/2023,Unknown,NO3-NO2,0.254,,mg/L as N
+TC 15 09/2023,Unknown,NO3-NO2,0.745,,mg/L as N
+TC 16 09/2023,Unknown,NO3-NO2,0.897,,mg/L as N
+TC 15 10/2023,Unknown,NO3-NO2,0.723,,mg/L as N
+TC 16 10/2023,Unknown,NO3-NO2,0.544,,mg/L as N
+TC 15 11/2023,Unknown,NO3-NO2,0.727,,mg/L as N
+TC 16 11/2023,Unknown,NO3-NO2,0.467,,mg/L as N
+TC 15 12/2023,Unknown,NO3-NO2,0.682,,mg/L as N
+TC 16 12/2023,Unknown,NO3-NO2,0.436,,mg/L as N
+DI WATER,Unknown,NO3-NO2,-0.072,,mg/L as N
+20ppm check,Check Standard,NO3-NO2,18.721,18.70815,mg/L as N
+20ppm check,Check Standard,NO3-NO2,18.421,18.37066,mg/L as N
+0.5ppm check,Check Standard,NO3-NO2,0.547,0.5679004,mg/L as N
+0.5ppm check,Check Standard,NO3-NO2,0.475,0.4927768,mg/L as N
+blank,Check Standard,NO3-NO2,-0.063,-6.83E-02,mg/L as N
+Blank,Check Standard,NO3-NO2,-0.093,-9.96E-02,mg/L as N
