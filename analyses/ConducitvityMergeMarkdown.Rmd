@@ -6,6 +6,7 @@ date: "2024-01-24"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 
@@ -15,68 +16,120 @@ rm(list=ls())
 
 #use to set working directory 
 knitr::opts_knit$set(root.dir="~/GitHub/TownCreekWater/analyses")
-setwd("~/GitHub/TownCreekWater/analyses")
+#setwd("~/GitHub/TownCreekWater/analyses")
+```
+
+```{r}
+require(tidyverse)
+require(lubridate)
+require(ggplot2)
 ```
 
 
 ```{r - Total Dry RSC Conductivity}
-library(tidyverse)
-library(lubridate)
-
 #Read in csv file 
-#TotalDryRSCCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalDry_RSC_down_condo.csv")
 
 TotalDryRSCCond <- read.csv("../data/HoboData/TotalDry_RSC_down_condo.csv")
 
 #Date manipulation 
 TotalDryRSCCond$Date2 = as.Date(TotalDryRSCCond$Date,"%m/%d/%Y" )
 
-#Plot
+#plot graph, expand limits (x & y axis), format plot: 
 plot.TDRSCC <- ggplot(
   data = TotalDryRSCCond, aes(x = Date2, y = Specific_Conductance, group=1)
  ) +
      geom_line() +
      geom_point(size=.25)+ 
      labs(
-         title = "Dry RSC Conducitivity Levels",
-         x = "Date", y = "Specific Conducitivity (μS/cm)",)+
-     
-     scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1)) + 
-  scale_y_continuous(0,20)
-plot.TDRSCC
-ggsave(file = "DryRSCCondcuctivity.png",
-width = 8,
-height = 5.5, 
-dpi = 300)
-```
-
-
-```{r - TotalIS_RSC_P1_Cond}
-library(tidyverse)
-library(lubridate)
-#Read in csv file 
-#TotalISRSCP1Cond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalIS_RSC_P1_cond.csv")
-
-TotalISRSCP1Cond <- read.csv("../data/HoboData/TotalIS_RSC_P1_cond.csv")
-
-TotalISRSCP1Cond$Date2 = as.Date(TotalISRSCP1Cond$Date,"%m/%d/%Y" )
-
-plot.TISRSCP1 <- ggplot(
-  data = TotalISRSCP1Cond, aes(x = Date2, y = Specific_Conductance, group=1)
- ) +
-  theme_bw() +
+         title = "",
+         x = "", y = "Specific Conducitivity (μS/cm)",)+
+     theme(axis.text.x = element_text(angle=45, hjust = 1))+
+    #Set axis title and text properties, tick marks, and labels
+   theme_bw() +
+  #exnpand limits and crate x-axis format 
+  expand_limits(x = as.Date(c("2023-04-01", "2023-12-01")))+
+  scale_x_date(date_labels = "%b %y", date_breaks = "1 months")+
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))+
+     theme(axis.text.x = element_text(angle=45, hjust = 1)) 
+plot.TDRSCC
+#ggsave(file = "DryRSCCondcuctivity.png",
+#width = 8,
+#height = 5.5, 
+#dpi = 300)
+```
+```{r - Total Dry RSC Up Conductivty}
+
+# read in data:
+TotalDryRSCupCond <- read.csv("../data/HoboData/TotalDryRSCUpConductivity.csv")
+
+#format date 
+TotalDryRSCupCond$Date2 = as.Date(TotalDryRSCupCond$Date,"%m/%d/%Y")
+
+#plot graph, expand limits (x & y axis?), format plot: 
+plot.TotalDryRSCupCond <- ggplot(
+  data = TotalDryRSCupCond, aes(x = Date2, y = Specific_Conductance, group=1)
+ ) +
+ 
      geom_line() +
      geom_point(size=.25)+ 
      labs(
          title = "",
          x = "", y = "Specific Conducitivity (μS/cm)",)+
      
-     scale_x_date(date_labels = "%F", date_breaks = "1 month")+
+     scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
      theme(axis.text.x = element_text(angle=45, hjust = 1))+
     #Set axis title and text properties, tick marks, and labels
+   theme_bw() +
+  #exand limits on grpah 
+   expand_limits(x = as.Date(c("2023-04-01", "2023-12-01")))+
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
+plot.TotalDryRSCupCond
+```
+
+
+```{r - TotalIS_RSC_P1_Cond}
+#Read in csv file 
+TotalISRSCP1Cond <- read.csv("../data/HoboData/TotalIS_RSC_P1_cond.csv")
+
+#format date 
+TotalISRSCP1Cond$Date2 = as.Date(TotalISRSCP1Cond$Date,"%m/%d/%Y" )
+
+#plot graph, expand limits (x & y axis), format plot: 
+plot.TISRSCP1 <- ggplot(
+  data = TotalISRSCP1Cond, aes(x = Date2, y = Specific_Conductance, group=1)
+ ) +
+ 
+     geom_line() +
+     geom_point(size=.25)+ 
+     labs(
+         title = "",
+         x = "", y = "Specific Conducitivity (μS/cm)",)+
+     scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
+     theme(axis.text.x = element_text(angle=45, hjust = 1))+
+    #Set axis title and text properties, tick marks, and labels
+   theme_bw() +
+  expand_limits(x = as.Date(c("2023-04-01", "2023-12-01")))+
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
           axis.text=element_text(size=20),  
           axis.title.y=element_text(margin=margin(r=10)),
@@ -93,44 +146,52 @@ plot.TISRSCP1
 
 
 ```{r - Total RSC Piezometer Deep}
-library(tidyverse)
-library(lubridate)
-
 #Read in csv file 
-TotalRSCPiezometerDeep <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\TotalRSC_Piezometer_deep_cond.csv")
+TotalRSCPiezometerDeep <- read.csv("../data/HoboData/TotalRSC_Piezometer_deep_cond.csv")
 
+#format date 
 TotalRSCPiezometerDeep$Date2 = as.Date(TotalRSCPiezometerDeep$Date,"%m/%d/%Y" )
 
-plot.TRSCPD<- ggplot(
-  data = TotalRSCPiezometerDeep
+#plot graph, expand limits (x & y axis), format plot: 
+plot.TotalRSCPiezometerDeep <- ggplot(
+ data = TotalRSCPiezometerDeep, aes(x = Date2, y = Specific_Conductance, group=1)
  ) +
 #geom_line(data = TotalRSCPiezometerDeep[1:18544, ], aes(x = Date2, y=Specific_Conductance, group = 1 )) +
 #geom_line(data = TotalRSCPiezometerDeep[28233:length(TotalR1PH$Date), ], aes(x = Date2, y=Specific_Conductance, group = 2))+ 
-geom_point(data = TotalRSCPiezometerDeep, aes(x = Date2, y=Specific_Conductance),size=.25)+ 
+geom_point(size=.25)+ 
      labs(
-         title = "RSC Piezometer Deep Conducitivity Levels",
-         x = "Date", y = "Specific Conducitivity (μS/cm)")+
-     scale_x_date(date_labels = "%F", date_breaks = "1 month")+
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
-plot.TRSCPD
-ggsave(file = "RSCPDConductivity.png",
-width = 8,
-height = 5.5, 
-dpi = 300)
+         title = "",
+         x = "", y = "Specific Conducitivity (μS/cm)")+
+     scale_x_date(date_labels = "%b %y", date_breaks = "3 month")+
+    expand_limits(x = as.Date(c("2022-01-01", "2023-12-01")))+
+     theme(axis.text.x = element_text(angle=45, hjust = 1)) + 
+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=20),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
+
+plot.TotalRSCPiezometerDeep
+#ggsave(file = "RSCPDConductivity.png",
+#width = 8,
+#height = 5.5, 
+#dpi = 300)
 ```
 
 ```{r - Total IS RSC Upstream Conducitivty}
-
-library(tidyverse)
-library(lubridate)
-
 #Read in csv file 
-#TotalISRSCUpCond <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\IS_RSC_Upstream_cond.csv")
-
 TotalISRSCUpCond <- read.csv("../data/HoboData/IS_RSC_Upstream_cond.csv")
 
+#format date
 TotalISRSCUpCond$Date2 = as.Date(TotalISRSCUpCond$Date,"%m/%d/%Y" )
 
+#plot graph, expand limits (x & y axis), format plot: 
+#plot
 plot.ISRSCUP<- ggplot(data = TotalISRSCUpCond, aes(x = Date2, y = Specific_Conductance, group=1)) +
   theme_bw() +
   #Remove plot grid lines
@@ -138,7 +199,9 @@ plot.ISRSCUP<- ggplot(data = TotalISRSCUpCond, aes(x = Date2, y = Specific_Condu
      #geom_line() +
      geom_point(size=.25)+ 
      labs(title = "", x = "", y = "Specific Conducitivity (μS/cm)")+
-     scale_x_date(date_labels = "%F", date_breaks = "1 month")+
+  #expand limits
+     scale_x_date(date_labels = "%b %y", date_breaks = "3 month")+
+      expand_limits(x = as.Date(c("2022-01-01", "2023-12-01")))+
      theme(axis.text.x = element_text(angle=45, hjust = 1))+
     #Set axis title and text properties, tick marks, and labels
   theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
@@ -152,14 +215,16 @@ plot.ISRSCUP<- ggplot(data = TotalISRSCUpCond, aes(x = Date2, y = Specific_Condu
 
 plot.ISRSCUP
 
-ggsave(file = "ISRSCUPstream.png",
-width = 8,
-height = 5.5, 
-dpi = 300
-)
+#ggsave(file = "ISRSCUPstream.png",
+#width = 8,
+#height = 5.5, 
+#dpi = 300
+#)
 ```
 
 ```{r}
+#install.packages("ggpubr")
+library("ggpubr")
 two_panel_IS_up_Down <- ggarrange(plot.TISRSCP1, plot.ISRSCUP, ncol = 1, nrow = 2, labels = NULL, legend = "none")
 
 two_panel_IS_up_Down
