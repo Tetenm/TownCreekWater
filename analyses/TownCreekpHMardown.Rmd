@@ -10,11 +10,13 @@ require ("ggplot2")
 ```
 
 ```{r - ph R1}
-TotalR1PH <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\Total Town creek r1 ph.csv")
+#read in graph 
+TotalR1PH <- read.csv("../data/HoboData/Total Town creek r1 ph.csv")
 
+#formate date
 TotalR1PH$Date2 <- as.Date(TotalR1PH$Date,"%m/%d/%Y")
 
-
+#plot graph, expand limits (y axis) 
 plot.R1PH <- ggplot(
   #data = TotalR1PH, aes(x = Date2, y = pH, group=1 )
 ) +
@@ -23,31 +25,37 @@ plot.R1PH <- ggplot(
 
   geom_point(size=.25)+ 
   labs(
-    title = "R1 pH" ,
+    title = "" ,
     x = "", y = "pH" , )+
     
-   scale_x_date(date_labels = "%F", date_breaks = "1 month")+
+   scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
+  expand_limits(y = c(6,8)) + 
+
      theme(axis.text.x = element_text(angle=45, hjust = 1))
      
 plot.R1PH
 ```
-```{r}
+```{r - working plot R3 pH}
 
-TotalR3PH <- read.csv("C:\\Users\\Teten\\GitHub\\TownCreekWater\\data\\HoboData\\Total Town Creek r3 ph (2).csv")
+#read in graph 
+TotalR3PH <- read.csv("../data/HoboData/Total Town Creek r3 ph (2).csv")
 
+#formate date
 TotalR3PH$Date2 <- as.Date(TotalR3PH$Date, "%m/%d/%Y")
 
-
+#plot graph, expand limits (y axis) 
 plot.R3PH <- ggplot(
   data = TotalR3PH, aes(x = Date2, y = pH, group=1)
 ) +
   geom_line() +
   geom_point(size=.25)+ 
   labs(
-    title = "R3 pH" ,
+    title = "" ,
     x = "", y = "pH" , )+
     
-   scale_x_date(date_labels = "%F", date_breaks = "1 month")+
+   scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
+    expand_limits(y = c(6,8)) + 
+
      theme(axis.text.x = element_text(angle=45, hjust = 1))
 plot.R3PH
 ```

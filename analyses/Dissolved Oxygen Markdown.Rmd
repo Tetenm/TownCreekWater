@@ -83,3 +83,12 @@ plot.R3DO
 
 ```
 
+```{r}
+require("lubridate")
+
+two_panel_DO <- ggarrange(plot.R1DO, plot.R3DO, ncol = 2, nrow = 2,
+                          legend = "none")
+
+two_panel_DO
+```
+
