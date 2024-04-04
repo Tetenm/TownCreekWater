@@ -5,47 +5,59 @@ date: "2024-02-22"
 ---
 
 ```{r setup, include=FALSE}
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r-required packaging}
-#load in necessary packages 
-require(tidyverse)
-require(ggplot2)
-require(lubridate)
-```
 
 ```{r}
 require(tidyverse)
 require(ggplot2)
 require(lubridate)
+require("ggpubr")
+
 ```
 
 
 ```{r - Node 12 TC Upstream}
+#change to every single month 
 # read in csv file 
-N12TCUP <- read.csv("C:\\Users\\Teten\\Downloads\\Peralta Lab Data\\Grafana\\Node 12 -TC Upstream _07-23 to 01-24.csv")
+N12TCUP <- read.csv("../data/Grafana/Node 12 -TC Upstream _07-23 to 01-24.csv")
 
 # Date manipulation - to month and day 
 N12TCUP$Time2 <- as.Date(N12TCUP$Time,"%m/%d/%Y")
 
 
-# No Negative water level values so no furthermanipulation is required 
+# No Negative water level values so no further manipulation is required 
+
 
 #plot
-plot.N12TCUP <- ggplot (data = N12TCUP, aes(x = Time2, y = Water_level) 
-  )+
-  geom_point()+
-  geom_line()+
+plot.N12TCUP <- ggplot (
+  data = N12TCUP, aes(x = Time2, y = Water_level, group=1) 
+  ) +
+  geom_line() +
+  geom_point(size=.25)+
   labs( 
     title = "Node 12 TC Upstream ",
-    x = "", y = "Water level (m)",
-    scale_x_date(date_labels = "%F", date_breaks = "1 month"))
-    theme(axis.text.x = element_text(angle=45, hjust = 1))
+    x = "", y = "Water level (m)", ) + 
+    scale_x_date(date_labels = "%m", date_breaks = "1 month") + 
+ theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+ 
 plot.N12TCUP
 ```
 
-```{r}
+```{r - Node 10 TC Downstream}
 # read in csv file 
 N10TCDown <- read.csv("C:\\Users\\Teten\\Downloads\\Peralta Lab Data\\Grafana\\Node 10 -TC Downstream _07-23 to 01-24.csv")
 
@@ -63,9 +75,30 @@ plot.N10TCDown <- ggplot (data = N10TCDown, aes(x = Time2, y = Water_level)
   geom_line()+
   labs( 
     title = "Node 10 TC Downstream ",
-    x = "", y = "Water level (m)",
-    scale_x_date(date_labels = "%F", date_breaks = "1 month"))
-    theme(axis.text.x = element_text(angle=45, hjust = 1))
+    x = "", y = "Water level (m)", ) + 
+   scale_x_date(date_labels = "%b, %y", date_breaks = "1 month") + 
+   expand_limits(y = c(0, 8)) + 
+ theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+ 
 plot.N10TCDown
+```
+
+
+
+```{r}
+two_panel_Grafana_Water_Levels <- ggarrange(plot.N12TCUP, plot.N10TCDown,  ncol = 2, nrow = 1, labels = c("A", "B"), legend = "none")
+
+two_panel_Grafana_Water_Levels
 ```
 

@@ -18,21 +18,33 @@ TotalR1PH$Date2 <- as.Date(TotalR1PH$Date,"%m/%d/%Y")
 
 #plot graph, expand limits (y axis) 
 plot.R1PH <- ggplot(
-  #data = TotalR1PH, aes(x = Date2, y = pH, group=1 )
 ) +
+  #fix date breaks 
   geom_line(data = TotalR1PH[1:28331, ], aes(x = Date2, y=pH, group = 1 )) +
   geom_line(data = TotalR1PH[28332:length(TotalR1PH$Date), ], aes(x = Date2, y=pH, group = 2 )) +
 
+#plot graph
   geom_point(size=.25)+ 
   labs(
     title = "" ,
     x = "", y = "pH" , )+
     
+  #set x and y axis limits
    scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
   expand_limits(y = c(6,8)) + 
+  
+  #Set axis title and text properties, tick marks, and labels
 
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
-     
+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
 plot.R1PH
 ```
 ```{r - working plot R3 pH}
@@ -53,10 +65,23 @@ plot.R3PH <- ggplot(
     title = "" ,
     x = "", y = "pH" , )+
     
+#set x and y axis limits
+
    scale_x_date(date_labels = "%b %y", date_breaks = "1 month")+
     expand_limits(y = c(6,8)) + 
+    
+#Set axis title and text properties, tick marks, and labels
 
-     theme(axis.text.x = element_text(angle=45, hjust = 1))
+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
+  theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
+          axis.text=element_text(size=15),  
+          axis.title.y=element_text(margin=margin(r=10)),
+          axis.title.x = element_text(margin = margin(r=10)),
+          panel.border = element_rect(colour = "black",linewidth=1),strip.text = element_text(size = 20), legend.position="none", legend.title = element_text(size=20), legend.text=element_text(size=20)) + 
+          theme(axis.ticks.length=unit(0.3,"cm")) + 
+  theme(rect=element_rect(fill="transparent"))+
+  theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
 plot.R3PH
 ```
 
