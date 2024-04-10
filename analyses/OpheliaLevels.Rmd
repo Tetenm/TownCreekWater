@@ -22,21 +22,21 @@ require("scales")
 FinalRiffle1 <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
 
 # Format date:
-FinalRiffle1$Date2 = as.Date(FinalRiffle1$Date,"%m/%d/%Y")
+FinalRiffle1$Date2 <- mdy_hm(FinalRiffle1$Date)
 
 #plot graph, expand limits (x & y axis), format plot 
 plot.R1OWL <- ggplot(
   data = FinalRiffle1, aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
      geom_line() +
-     geom_point(size=.25)+ 
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "Sensor Depth (m)",)+
-     #Ophelia Date limits:
-     scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
-     #scale_x_date(date_labels = "%b %y") +
-   theme_bw() +
+ theme_bw() +
+       #Ophelia Date limits (X and Y):
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
+  expand_limits(y = c(0, 2.5))+
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
@@ -48,6 +48,7 @@ plot.R1OWL <- ggplot(
           theme(axis.ticks.length=unit(0.3,"cm")) + 
   theme(rect=element_rect(fill="transparent"))+
   theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+ 
 
 plot.R1OWL
 ```
@@ -56,22 +57,19 @@ FinalRiffle3 <- read.csv("../data/HoboData/Totalriffle3.csv")
 
 
 # Format date:
-FinalRiffle3$Date2 = as.Date(FinalRiffle3$Date,"%m/%d/%Y")
+FinalRiffle3$Date2 <- mdy_hm(FinalRiffle3$Date)
 
-#range <-  c(as.Date(x = "Feb 22",format= "%b %y"), as.Date("Nov 23", "%b %Y"))
 
 #plot graph, expand limits (x & y axis), format plot: 
 plot.R3OWL <- ggplot(data = FinalRiffle3, aes (x = Date2, y = Sensor_Depth, group=1)) +
      geom_line() +
-     geom_point(size=.25)+ 
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "Sensor Depth (m)",) +
-
-     #Ophelia Date limits:
-        scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
-         expand_limits(y = c(0, 2.5)) + 
-   #scale_x_date(date_labels = "%b %y", date_breaks = "3 months")+
+       #Ophelia Date limits (X and Y):
+    xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
+    expand_limits(y = c(0, 2.5)) + 
       theme_bw() +
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
@@ -94,19 +92,19 @@ plot.R3OWL
 TotalPiezometerShallow <- read.csv("../data/HoboData/TotalRSC_Piezometer_shallow.csv")
 
 # Format date:
-TotalPiezometerShallow$Date2 = as.Date(TotalPiezometerShallow$Date,"%m/%d/%Y")
+TotalPiezometerShallow$Date2<- mdy_hm(TotalPiezometerShallow$Date)
 
 #Plot graph, expand limits (x & y axis), format plot: 
 plot.TPSO <- ggplot(
   data = TotalPiezometerShallow, aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
      geom_line() +
-     geom_point(size=.25)+ 
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "Sensor Depth (m)",)+
-    #Ophelia Date limits:
-    scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
+       #Ophelia Date limits (X and Y):
+    xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
     expand_limits(y = c(0, 2.5)) + 
     theme_bw() +
   #Remove plot grid lines
@@ -129,7 +127,7 @@ plot.TPSO
 TotalSmallRSCDown <- read.csv("../data/HoboData/Total_Small_RSC_Down.csv")
 
 # Format date:
-TotalSmallRSCDown$Date2 = as.Date(TotalSmallRSCDown$Date,"%m/%d/%Y")
+TotalSmallRSCDown$Date2<- mdy_hm(TotalSmallRSCDown$Date)
 
 #Remove negative sensor depth 
 TotalSmallRSCDown$Sensor_Depth[TotalSmallRSCDown$Sensor_Depth<0] <- 0 
@@ -139,15 +137,15 @@ TotalSmallRSCDown$Sensor_Depth[TotalSmallRSCDown$Sensor_Depth<0] <- 0
 plot.TSRSCDO <- ggplot(
   data = TotalSmallRSCDown, aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
-     geom_line() +
-     geom_point(size=.25)+ 
+    geom_line() +
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "",)+
- #Ophelia Date limits:
-  scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) +  
+  #Ophelia Date limits (X and Y):
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
+  expand_limits(y = c(0, 2.5))+
   theme_bw() +
-#expand_limits(y = c(0, 2.5)) + 
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
@@ -168,20 +166,20 @@ plot.TSRSCDO
 TotalPiezometerDeep <- read.csv("../data/HoboData/Totalrsc_piezometer_deep.csv")
 
 # Format date:
-TotalPiezometerDeep$Date2 = as.Date(TotalPiezometerDeep$Date,"%m/%d/%Y")
+TotalPiezometerDeep$Date2 <- mdy_hm(TotalPiezometerDeep$Date)
 
 #plot graph, expand limits (x & y axis), format plot: 
 plot.TPDO <- ggplot(
   data = TotalPiezometerDeep, aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
      geom_line() +
-     geom_point(size=.25)+ 
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "Sensor Depth (m)",)+
 theme_bw() +
-  #Ophelia Date limits:
-  scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
+  #Ophelia Date limits (X and Y):
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
   expand_limits(y = c(0, 2.5)) + 
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
@@ -203,7 +201,7 @@ plot.TPDO
 TotalSmallRSCUp <- read.csv("../data/HoboData/TotalTC_Small_RSC_Up.csv")
 
 # Format date:
-TotalSmallRSCUp$Date2 <- as.Date(TotalSmallRSCUp$Date,"%m/%d/%Y")
+TotalSmallRSCUp$Date2 <- mdy_hm(TotalSmallRSCUp$Date)
 
 #Remove negative sensor depths
 TotalSmallRSCUp$Sensor_Depth[TotalSmallRSCUp$Sensor_Depth<0] <- 0 
@@ -214,14 +212,14 @@ plot.TSRSCUO <- ggplot(
   data = TotalSmallRSCUp, aes(x = Date2, y = Sensor_Depth, group=1)
  ) +
      geom_line() +
-     geom_point(size=.25)+ 
+     geom_point()+ 
      labs(
          title = "",
          x = "", y = "Sensor Depth (m)",)+
 theme_bw() +
-  #Ophelia Date limits:
-  scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
-  #expand_limits(y = c(0, 2.5)) + 
+  #Ophelia Date limits (X and Y):
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
+  expand_limits(y = c(0, 2.5)) + 
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
@@ -237,18 +235,32 @@ theme_bw() +
 plot.TSRSCUO
 ```
 
-```{r}
-two_panel_Ophelia_Water_Levels <- ggarrange(plot.R1OWL, plot.R3OWL, plot.TPSO, plot.TPDO, ncol = 2, nrow = 2, labels = c("A", "B", "C", "D"), legend = "none")
+```{r - Riffle Comparisons }
+two_panel_Ophelia_Water_Levels_Riffle <- ggarrange(plot.R1OWL, plot.R3OWL, ncol = 2, nrow = 1, labels = c("A", "B"), legend = "none")
 
 two_panel_Ophelia_Water_Levels
 ```
+
+```{r - Piezometer Comparisons}
+two_panel_Ophelia_Water_Levels_Piezometer <- ggarrange(plot.TPSO, plot.TPDO, ncol = 2, nrow = 1, labels = c("C", "D"), legend = "none")
+
+two_panel_Ophelia_Water_Levels_Piezometer
+```
+
+```{r - Small RSC Comparisons}
+two_panel_Ophelia_Water_Levels_SmallRSC <- ggarrange(plot.TSRSCDO, plot.TSRSCUO, ncol = 2, nrow = 1, labels = c("E", "F"), legend = "none")
+
+two_panel_Ophelia_Water_Levels_SmallRSC
+```
+
+
 ```{r - Water Level (Node 12 TC Upstream, Grafana)}
 #change to every single month 
 # read in csv file 
 N12TCUP <- read.csv("../data/Grafana/Node 12 -TC Upstream _07-23 to 01-24.csv")
 
 # Date manipulation - to month and day 
-N12TCUP$Time2 <- as.Date(N12TCUP$Time,"%m/%d/%Y")
+N12TCUP$Time2 <- mdy_hm(N12TCUP$Time)
 
 
 # No Negative water level values so no further manipulation is required 
@@ -259,13 +271,13 @@ plot.N12TCUPO <- ggplot (
   data = N12TCUP, aes(x = Time2, y = Water_level, group=1) 
   ) +
   geom_line() +
-  geom_point(size=.25)+
+  geom_point()+
   labs( 
     title = "Node 12 TC Upstream ",
     x = "", y = "Water level (m)", ) + 
     scale_x_date(date_labels = "%m", date_breaks = "1 month") + 
  theme_bw() +
-    scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"))) + 
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
@@ -285,11 +297,11 @@ plot.N12TCUPO
 ```{r - Water Level - (Node 10 TC Downstream, Grafana)}
 # read in csv file 
 N10TCDown <- read.csv("C:\\Users\\Teten\\Downloads\\Peralta Lab Data\\Grafana\\Node 10 -TC Downstream _07-23 to 01-24.csv")
+N10TCDown$Time2 <- mdy_hm(N10TCDown$Time)
 
 # Date manipulation - to month and day 
-#N10TCDown$Time2 <- as.Date(N10TCDown$Time,"%m/%d/%Y")
-#N10TCDown$Time2 <- as.Date(N10TCDown$Time, "%m/%d/%Y %H:%M")
-N10TCDown$Time2 <- as.POSIXct(N10TCDown$Time, format = "%m/%d/%Y %H:%M")
+#N10TCDown$Time2 <- as.Date(N10TCDown$Time,"%m/%d/%Y %R")
+
 
 #  Negative water level values so  further manipulation is required 
 N10TCDown$Water_level[N10TCDown$Water_level<0] <- 0
@@ -305,7 +317,8 @@ plot.N10TCDownO <- ggplot (data = N10TCDown, aes(x = Time2, y = Water_level)
    #scale_x_date(date_labels = "%b, %y, %H:%M") + 
    expand_limits(y = c(0, 8)) + 
  theme_bw() +
-  scale_x_date(limits = as.Date(c("2023-09-20", "2023-09-27"),date_labels = "%b, %y, %H:%M")) + 
+#scale_x_date(limits = c(as.Date("2023-09-20", "2023-09-27"), date_labels = "%b, %y")) + 
+  xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
@@ -321,7 +334,7 @@ plot.N10TCDownO <- ggplot (data = N10TCDown, aes(x = Time2, y = Water_level)
 plot.N10TCDownO
 ```
 ```{r - Two panel Opehlia Grafana Levels}
-two_panel_GrafanaOphelia_Water_Levels <- ggarrange(plot.N12TCUPO, plot.N10TCDownO, ncol = 1, nrow = 2, labels = c("A", "B"), legend = "none")
+two_panel_GrafanaOphelia_Water_Levels <- ggarrange(plot.N12TCUPO, plot.N10TCDownO, ncol = 2, nrow = 1, labels = c("G", "H"), legend = "none")
 
 two_panel_GrafanaOphelia_Water_Levels
 ```

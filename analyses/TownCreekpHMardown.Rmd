@@ -34,8 +34,10 @@ plot.R1PH <- ggplot(
   expand_limits(y = c(6,8)) + 
   
   #Set axis title and text properties, tick marks, and labels
-
-theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #Set axis title and text properties, tick marks, and labels
   theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
           axis.text=element_text(size=15),  
           axis.title.y=element_text(margin=margin(r=10)),
@@ -71,8 +73,9 @@ plot.R3PH <- ggplot(
     expand_limits(y = c(6,8)) + 
     
 #Set axis title and text properties, tick marks, and labels
-
-theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme_bw() +
+  #Remove plot grid lines
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   #Set axis title and text properties, tick marks, and labels
   theme(text=element_text(size=20),axis.title=element_text(size=20,face="bold"),
           axis.text=element_text(size=15),  
@@ -82,6 +85,7 @@ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
           theme(axis.ticks.length=unit(0.3,"cm")) + 
   theme(rect=element_rect(fill="transparent"))+
   theme(plot.background = element_rect(color=NA), axis.text.x = element_text(angle=45, hjust = 1))
+
 plot.R3PH
 ```
 

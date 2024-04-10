@@ -20,27 +20,24 @@ require("ggpubr")
 
 
 ```{r - Node 12 TC Upstream}
-#change to every single month 
 # read in csv file 
 N12TCUP <- read.csv("../data/Grafana/Node 12 -TC Upstream _07-23 to 01-24.csv")
 
 # Date manipulation - to month and day 
 N12TCUP$Time2 <- as.Date(N12TCUP$Time,"%m/%d/%Y")
 
-
 # No Negative water level values so no further manipulation is required 
-
-
 #plot
 plot.N12TCUP <- ggplot (
   data = N12TCUP, aes(x = Time2, y = Water_level, group=1) 
   ) +
   geom_line() +
-  geom_point(size=.25)+
+  geom_point()+
   labs( 
     title = "Node 12 TC Upstream ",
     x = "", y = "Water level (m)", ) + 
-    scale_x_date(date_labels = "%m", date_breaks = "1 month") + 
+  #Set X scale and date breaks 
+   scale_x_date(date_labels = "%b, %y", date_breaks = "1 month") + 
  theme_bw() +
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
@@ -76,7 +73,9 @@ plot.N10TCDown <- ggplot (data = N10TCDown, aes(x = Time2, y = Water_level)
   labs( 
     title = "Node 10 TC Downstream ",
     x = "", y = "Water level (m)", ) + 
+    #Set X scale and date breaks 
    scale_x_date(date_labels = "%b, %y", date_breaks = "1 month") + 
+    #Expand Y axis limits 
    expand_limits(y = c(0, 8)) + 
  theme_bw() +
   #Remove plot grid lines
