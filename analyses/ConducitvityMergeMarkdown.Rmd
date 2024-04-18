@@ -164,10 +164,9 @@ geom_point(size=.25)+
          title = "",
          x = "", y = "Specific Conducitivity (μS/cm)")+
   #set x and y limits 
-     #scale_x_date(date_labels = "%b %y", date_breaks = "3 month")+
     #expand_limits(x = as.Date(c("2022-01-01", "2023-12-01")))+
     xlim(as.POSIXct("2022-01-01 12:00:00", tz = ""), as.POSIXct("2023-12-01 12:00:00", tz = "")) + 
-
+    scale_x_date(date_labels = "%b %y", date_breaks = "3 month")+
    #Set axis title and text properties, tick marks, and labels
 theme_bw() +
   #Remove plot grid lines

@@ -144,7 +144,7 @@ plot.TSRSCDO <- ggplot(
          x = "", y = "",)+
   #Ophelia Date limits (X and Y):
   xlim(as.POSIXct("2023-09-20 12:00:00", tz = ""), as.POSIXct("2023-09-27 12:00:00", tz = "")) + 
-  expand_limits(y = c(0, 2.5))+
+  #expand_limits(y = c(0, 2.5))+
   theme_bw() +
   #Remove plot grid lines
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +

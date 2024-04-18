@@ -1,4 +1,4 @@
-﻿#,Date T,"Abs Pres, kPa (LGR S/N: 21131861_duplicate, SEN S/N: 21131861)","Temp, °C (LGR S/N: 21131861_duplicate, SEN S/N: 21131861)","Abs Pres Barom., kPa (LGR S/N: 21132118_duplicate, SEN S/N: 21132118)",Sensor_Depth
+﻿#,Date,"Abs Pres, kPa (LGR S/N: 21131861, SEN S/N: 21131861)","Temp, °C (LGR S/N: 21131861, SEN S/N: 21131861)","Abs Pres Barom., kPa (LGR S/N: 21132118, SEN S/N: 21132118)",Sensor_Depth
 1,2/9/2022 16:45,101.415,14.325,,
 2,2/9/2022 17:00,101.419,13.846,101.44,-0.002
 3,2/9/2022 17:15,101.39,13.365,101.406,-0.002

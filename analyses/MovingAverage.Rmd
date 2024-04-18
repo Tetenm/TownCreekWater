@@ -1,0 +1,27 @@
+---
+title: "Moving Averages"
+output: html_document
+date: "2024-04-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+```
+
+```{r - Required packages}
+require(tidyverse)
+require(ggplot2)
+require(zoo)
+```
+
+```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1)}
+
+MARiffle1 <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+
+data <- rollmean(MARiffle1$Sensor_Depth, 7, fill =list(NA, NULL, NA), align = "right")
+
+result <-cbind(MARiffle1, data)
+
+```
+

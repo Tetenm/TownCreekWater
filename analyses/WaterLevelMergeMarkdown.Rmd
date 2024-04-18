@@ -157,7 +157,7 @@ plot.TSRSCD <- ggplot(
          title = "",
          x = "", y = "",)+
     #expand limits (not on y-axis since this was used as the largest range:
-    expand_limits(x = as.Date(c("2022-01-01", "2023-12-15")))+ 
+    expand_limits(x = as.Date(c("2022-01-01", "2024-05-24")))+ 
    scale_x_date(date_labels = "%b %y", date_breaks = "3 months")+
  theme_bw() +
 expand_limits(y = c(0, 2.5)) + 
@@ -235,7 +235,8 @@ plot.TSRSCU <- ggplot(
          title = "",
          x = "", y = "Sensor Depth (m)",) +
     #expand limits:
-    expand_limits(x = as.Date(c("2022-01-01", "2023-12-15")))+ 
+    expand_limits(x = as.Date(c("2022-01-01", "2024-05-22")))+ 
+     scale_x_date(date_labels = "%b %y", date_breaks = "3 months")+
       theme_bw() +
     expand_limits(y = c(0, 2.5)) + 
   #Remove plot grid lines
