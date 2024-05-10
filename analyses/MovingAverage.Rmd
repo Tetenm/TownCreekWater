@@ -13,15 +13,157 @@ rm(list = ls())
 require(tidyverse)
 require(ggplot2)
 require(zoo)
+require(readr)
+require(dplyr)
 ```
 
-```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1)}
+```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1) - Winter}
 
-MARiffle1 <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+data <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+data$Date <- mdy_hms(data$Date)
 
-data <- rollmean(MARiffle1$Sensor_Depth, 7, fill =list(NA, NULL, NA), align = "right")
 
-result <-cbind(MARiffle1, data)
+#Create start and end date 
+start_date <- 23664
+end_date <- 23707
+
+# Filter the data for the specified weeks
+start_date <- as.POSIXct(start_date)
+end_date <- as.POSIXct(end_date)
+data$date <- as.POSIXct(data$Date)
+
+# Filter the data for the specified weeks
+filtered_data <- data[start_date:end_date, ]
+
+# Calculate the seven-day moving average of 'sensor depth'
+filtered_data <- filtered_data %>%
+  arrange(date) %>%
+  mutate(seven_day_avg = zoo::rollmean(Sensor_Depth, 7, na.pad = TRUE, align = "right"))
+
+new_data_winter <- data.frame(date = filtered_data$date, seven_day_avg = filtered_data$seven_day_avg)
+
+
+```
+
+```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1) - Spring}
+data <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+data$Date <- mdy_hms(data$Date)
+
+
+#Create start and end date 
+start_date_spring <- 26448
+end_date_spring <- 26491
+
+# Filter the data for the specified weeks
+start_date_spring <- as.POSIXct(start_date_spring)
+end_date_spring <- as.POSIXct(end_date_spring)
+data$date <- as.POSIXct(data$Date)
+
+# Filter the data for the specified weeks
+filtered_data <- data[start_date_spring:end_date_spring, ]
+
+# Calculate the seven-day moving average of 'sensor depth'
+filtered_data <- filtered_data %>%
+  arrange(date) %>%
+  mutate(seven_day_avg = zoo::rollmean(Sensor_Depth, 7, na.pad = TRUE, align = "right"))
+
+new_data_spring <- data.frame(date = filtered_data$date, seven_day_avg = filtered_data$seven_day_avg)
+
+
+```
+
+```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1) - Summer}
+data <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+data$Date <- mdy_hms(data$Date)
+
+
+#Create start and end date 
+start_date_summer <- 37200
+end_date_summer <- 37243
+
+# Filter the data for the specified weeks
+start_date_summer <- as.POSIXct(start_date_summer)
+end_date_summer <- as.POSIXct(end_date_summer)
+data$date <- as.POSIXct(data$Date)
+
+# Filter the data for the specified weeks
+filtered_data <- data[start_date_summer:end_date_summer, ]
+
+# Calculate the seven-day moving average of 'sensor depth'
+filtered_data <- filtered_data %>%
+  arrange(date) %>%
+  mutate(seven_day_avg = zoo::rollmean(Sensor_Depth, 7, na.pad = TRUE, align = "right"))
+
+new_data_summer <- data.frame(date = filtered_data$date, seven_day_avg = filtered_data$seven_day_avg)
+
+```
+
+```{r - Moving Average Water Level with Town Creek Denitfication (Riffle1) - Fall}
+data <- read.csv("../data/HoboData/Final_Total_Riffle1.csv")
+data$Date <- mdy_hms(data$Date)
+
+
+#Create start and end date 
+start_date_fall <- 53232
+end_date_fall <- 53275
+
+# Filter the data for the specified weeks
+start_date_fall <- as.POSIXct(start_date_summer)
+end_date_fall <- as.POSIXct(end_date_summer)
+data$date <- as.POSIXct(data$Date)
+
+# Filter the data for the specified weeks
+filtered_data <- data[start_date_fall:end_date_fall, ]
+
+# Calculate the seven-day moving average of 'sensor depth'
+filtered_data <- filtered_data %>%
+  arrange(date) %>%
+  mutate(seven_day_avg = zoo::rollmean(Sensor_Depth, 7, na.pad = TRUE, align = "right"))
+
+new_data_fall <- data.frame(date = filtered_data$date, seven_day_avg = filtered_data$seven_day_avg)
+```
+
+```{r - Moving Average Conductivity Level with Town Creek Denitfication - Winter}
+
+data <- read.csv("../data/HoboData/TotalDry_RSC_down_condo.csv")
+
+data$Date <- mdy_hms(data$Date)
+
+
+#Create start and end date 
+start_date <- 23664
+end_date <- 23707
+
+# Filter the data for the specified weeks
+start_date <- as.POSIXct(start_date)
+end_date <- as.POSIXct(end_date)
+data$date <- as.POSIXct(data$Date)
+
+# Filter the data for the specified weeks
+filtered_data <- data[start_date:end_date, ]
+
+# Calculate the seven-day moving average of 'sensor depth'
+filtered_data <- filtered_data %>%
+  arrange(date) %>%
+  mutate(seven_day_avg = zoo::rollmean(Specific_Conductance, 7, na.pad = TRUE, align = "right"))
+
+new_data_winter_cond <- data.frame(date = filtered_data$date, seven_day_avg = filtered_data$seven_day_avg)
+
+```
+
+
+```{r - Isolate days and create new df}
+
+# Put all data frames into a list
+df_list <- list(new_data_winter, new_data_spring, new_data_summer, new_data_fall, new_data_winter_cond)
+
+# Merge all data frames together
+merged_df <- Reduce(function(x, y) merge(x, y, all=TRUE), df_list)
+
+```
+
+
+```{r - }
 
 ```
 
